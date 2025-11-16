@@ -24,7 +24,7 @@ public class ClockDisplay {
      * Constructor por defecto: inicializa el reloj en 00:00.
      */
     public ClockDisplay() {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
         updateDisplay();
     }
@@ -33,7 +33,7 @@ public class ClockDisplay {
      * Constructor que permite fijar una hora inicial.
      */
     public ClockDisplay(int hour, int minute) {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
         setTime(hour, minute);
     }
@@ -69,6 +69,16 @@ public class ClockDisplay {
      * Actualiza la cadena que representa la hora.
      */
     private void updateDisplay() {
-        displayString = hours.getDisplayValue() + ":" + minutes.getDisplayValue();
+        int hour = hours.getValue();
+
+        // Ajustar 0 a 12
+        if (hour == 0) {
+            hour = 12;
+        }
+
+        // Formateo con 2 dígitos para las horas
+        String hourString = (hour < 10 ? "0" : "") + hour;
+
+        displayString = hourString + ":" + minutes.getDisplayValue();
     }
 }
